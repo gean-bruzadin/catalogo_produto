@@ -1,4 +1,5 @@
 ﻿using catalogo_produto.Config;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -33,7 +34,12 @@ namespace catalogo_produto.Controllers
                         new Claim(ClaimTypes.NameIdentifier, usuario.Id_usuario.ToString()),
                         new Claim(ClaimTypes.Name, usuario.Nome_usuario),
                         new Claim(ClaimTypes.Email, usuario.Email_usuario)
-                    }
+                    };
+
+                    var regrasIdentity = new ClaimsIdentity(
+                        regras,
+                        CookieAuthenticationDefaults.AuthenticationScheme
+                        );
                    
 
                    return RedirectToAction("Index", "usuario");
